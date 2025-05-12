@@ -1,0 +1,234 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Smooth Corner - Round image corners online with transparent background and download as PNG." />
+  <meta name="keywords" content="round image corners, transparent image, online image editor, smooth corner, PNG editor" />
+  <meta name="author" content="Smooth Corner" />
+  <title>Smooth Corner - Round Image Corners Online</title>
+  <style>
+    :root {
+      --gradient: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+    body {
+      background: #121212;
+      color: #fff;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1rem;
+      color: #aaa;
+      margin-bottom: 2rem;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 0, 150, 0.3);
+    }
+    input[type="file"] {
+      display: none;
+    }
+    label.upload-btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: var(--gradient);
+      border-radius: 30px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    label.upload-btn:hover {
+      transform: scale(1.05);
+    }
+    #cornerRange {
+      width: 100%;
+      margin: 1rem 0;
+    }
+    canvas {
+      margin-top: 1rem;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 10px;
+      background: transparent;
+    }
+    .download-btn {
+      margin-top: 1rem;
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: var(--gradient);
+      border: none;
+      border-radius: 25px;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+    .download-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .ad-banner, .social-bar-ad {
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    .social-bar {
+      margin-top: 3rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+    .social-bar a {
+      color: #ccc;
+      transition: color 0.3s;
+    }
+    .social-bar a:hover {
+      color: #fff;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Smooth Corner</h1>
+  <p>Round your image corners & download as transparent PNG!</p>
+
+  <!-- Native Banner Ad -->
+  <div class="ad-banner">
+    <script type='text/javascript' src='//pl23053215.profitableratecpm.com/44/b1/93/44b1937429bdb4c55d00c254a45ac392.js'></script>
+    <script type="text/javascript">
+      atOptions = {
+        'key': '06b8df94f507ba2504c042119edd1f08',
+        'format': 'iframe',
+        'height': 50,
+        'width': 320,
+        'params': {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/06b8df94f507ba2504c042119edd1f08/invoke.js"></script>
+  </div>
+
+  <div class="container">
+    <label class="upload-btn" for="imageInput">Choose Image</label>
+    <input type="file" id="imageInput" accept="image/*" />
+
+    <input type="range" id="cornerRange" min="0" max="200" value="30" />
+
+    <canvas id="canvas"></canvas>
+
+    <a id="downloadBtn" class="download-btn" href="#" download="rounded-image.png">Download PNG</a>
+  </div>
+
+  <!-- Social Bar Ad -->
+  <div class="social-bar-ad">
+    <script type="text/javascript">
+      atOptions = {
+        'key': 'c52f5c4e1ed3e77d407833f0e95738a8',
+        'format': 'iframe',
+        'height': 250,
+        'width': 300,
+        'params': {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/c52f5c4e1ed3e77d407833f0e95738a8/invoke.js"></script>
+  </div>
+
+  <div class="social-bar">
+    <a href="#">FB</a>
+    <a href="#">TW</a>
+    <a href="#">IG</a>
+  </div>
+
+  <script>
+    const imageInput = document.getElementById("imageInput");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const range = document.getElementById("cornerRange");
+    const downloadBtn = document.getElementById("downloadBtn");
+    let img = new Image();
+    let imgURL = "";
+
+    function drawRoundedImage(radius) {
+      const width = img.width;
+      const height = img.height;
+      canvas.width = width;
+      canvas.height = height;
+
+      ctx.clearRect(0, 0, width, height);
+      ctx.save();
+
+      ctx.beginPath();
+      ctx.moveTo(radius, 0);
+      ctx.lineTo(width - radius, 0);
+      ctx.quadraticCurveTo(width, 0, width, radius);
+      ctx.lineTo(width, height - radius);
+      ctx.quadraticCurveTo(width, height, width - radius, height);
+      ctx.lineTo(radius, height);
+      ctx.quadraticCurveTo(0, height, 0, height - radius);
+      ctx.lineTo(0, radius);
+      ctx.quadraticCurveTo(0, 0, radius, 0);
+      ctx.closePath();
+      ctx.clip();
+
+      ctx.drawImage(img, 0, 0, width, height);
+      ctx.restore();
+    }
+
+    imageInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        img = new Image();
+        img.onload = () => drawRoundedImage(Number(range.value));
+        img.src = event.target.result;
+        imgURL = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    range.addEventListener("input", () => {
+      if (img.src) drawRoundedImage(Number(range.value));
+    });
+
+    downloadBtn.addEventListener("click", (e) => {
+      if (!img.src) {
+        e.preventDefault();
+        return;
+      }
+      const dataURL = canvas.toDataURL("image/png");
+      downloadBtn.href = dataURL;
+    });
+  </script>
+</body>
+</html>
+
+
+---
